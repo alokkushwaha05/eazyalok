@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EazyAlok - Online Tools</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Direct Font Awesome CSS Link -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #ffffff;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1.5s ease-in;
+            overflow-x: hidden;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #007BFF;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            position: relative;
+        }
+        .social-icons {
+            justify-self: start;
+        }
+        h1 {
+            font-size: 32px;
+            margin: 0;
+            justify-self: center;
+            grid-column: 2;
+            transition: transform 0.3s ease;
+            animation: fadeBounce 1s ease-out;
+        }
+        .header-auth {
+            display: flex;
+            gap: 10px;
+            justify-self: end;
+            position: static;
+            top: auto;
+            right: auto;
+        }
+
+        h1 {
+            font-size: 32px;
+            transition: transform 0.3s ease;
+            animation: fadeBounce 1s ease-out;
+        }
+
+        h1:hover {
+            transform: scale(1.1);
+            color: #f5feff;
+        }
+
+        @keyframes fire {
+            0% {
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
+                             0 0 15px rgb(0, 170, 255);
+            }
+            100% {
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
+                             0 0 15px rgb(255, 0, 0);
+            }
+        }
+
+        /* Social Media Icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 30px;
+            text-decoration: none;
+            transition: transform 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+            color: #ffeb3b;
+            box-shadow: 0 0 10px #ffeb3b;
+        }
+
+        /* Sign-up/Login Buttons */
+        .header-auth {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+        .login-btn, .signup-btn {
+            background: #ffffff;
+            color: #000000;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            outline: none;
+            margin: 0;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .login-btn:hover, .signup-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 10px #000000;
+        }
+        @media (max-width: 600px) {
+            .header-auth {
+                position: static;
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+
+        /* Tool Containers */
+        .tools-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        /* Alluring animation for tool cards */
+        .tool {
+            width: 150px;
+            height: 150px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transition: 
+                transform 0.4s cubic-bezier(.25,1.7,.45,.87), 
+                box-shadow 0.4s cubic-bezier(.25,1.7,.45,.87),
+                filter 0.4s;
+            will-change: transform, box-shadow, filter;
+        }
+        .tool:hover {
+            transform: translateY(-10px) scale(1.07) rotate(-2deg);
+            box-shadow: 0 8px 40px 0 rgba(0,123,255,0.25), 0 1.5px 10px 0 rgba(0,0,0,0.08);
+            filter: brightness(1.08) saturate(1.2);
+        }
+
+        .tool-icon {
+            font-size: 40px;
+            color: #00bfff;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .tool-icon:hover {
+            transform: scale(1.5) rotate(10deg);
+            color: #10ffab;
+        }
+
+        /* Fade-in animation for tool sections */
+        .tool-section {
+            display: none;
+            padding: 20px;
+            background: #e6e6e6;
+            border-radius: 10px;
+            box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            position: relative;
+            top: 0;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(.25,1.7,.45,.87), transform 0.6s cubic-bezier(.25,1.7,.45,.87);
+        }
+        .tool-section.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+            display: block !important;
+        }
+
+        .tool-section img {
+            max-width: 80%;
+            margin-top: 10px;
+        }
+
+        .download-btn {
+            margin-top: 20px;
+            background: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #007BFF;
+        }
+
+        .tool .fa-robot {
+            color: #ae00ff;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .tool .fa-robot:hover {
+            color: #ff4500;
+            transform: scale(1.5) rotate(10deg);
+        }
+
+        .fire-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            animation: fire 1.5s infinite alternate;
+        }
+
+        /* Animated gradient text for header */
+        #dust-effect {
+            background: linear-gradient(90deg, #00c6ff, #0072ff, #ea40a3, #a1de32, #00c6ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 3s ease-in-out infinite alternate;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Ensure enough space for scrolling */
+        .spacer {
+            height: 400px;
+        }
+
+        /* Footer should not stick at the bottom */
+        footer {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: static;
+            width: 100%;
+            margin-top: 70px;
+        }
+        .theme-toggle {
+    background: #fff;
+    color: #222;
+    border: none;
+    border-radius: 50%;
+    width: 31px;
+    height:31px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, color 0.3s;
+}
+.theme-toggle:hover {
+    background: #007BFF;
+    color: #fff;
+}
+
+body.night-mode {
+    background: #181c24;
+    color: #e0e0e0;
+}
+body.night-mode header,
+body.night-mode footer {
+    background: #23283a;
+    color: #fff;
+}
+body.night-mode .tool,
+body.night-mode .tool-section {
+    background: #23283a;
+    color: #e0e0e0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+body.night-mode .download-btn,
+body.night-mode .login-btn,
+body.night-mode .signup-btn,
+body.night-mode .theme-toggle {
+    background: #23283a;
+    color: #fff;
+}
+body.night-mode .tool-section input,
+body.night-mode .tool-section textarea {
+    background: #23283a;
+    color: #fff;
+    border: 1px solid #444;
+}
+body.night-mode .tool-section input::placeholder,
+body.night-mode .tool-section textarea::placeholder {
+    color: #aaa;
+}
+.social-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.theme-toggle {
+    margin-left: 10px;
+}
+.tool-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px 0;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .tool-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #0072ff;
+        }
+.close-section {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    background: #59f4ff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;      /* Changed from 50% to 6px for a square with slightly rounded corners */
+    width: 32px;
+    height: 32px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+.close-section:hover {
+    background: #fff129;
+    color: #222;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.4);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; 
+}
+.modal-content {
+  background: #fff;
+  color: #222;
+  margin: auto;
+  padding: 30px 24px 18px 24px;
+  border-radius: 12px;
+  max-width: 350px;
+  width: 90vw;
+  position: relative;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.18);
+  text-align: center;
+}
+.close-modal {
+  position: absolute;
+  top: 10px; right: 18px;
+  font-size: 1.7rem;
+  color: #888;
+  cursor: pointer;
+}
+.modal input[type="text"], .modal input[type="password"] {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  font-size: 1rem;
+}
+.modal .download-btn {
+  width: 100%;
+  margin-top: 14px;
+}
+@media (max-width: 600px) {
+  .modal-content { padding: 18px 4vw 10px 4vw; }
+}
+:focus {
+    outline: 2px solid #59f4ff !important;
+    outline-offset: 2px;
+}
+.download-btn:active,
+.close-section:active,
+.modal .download-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 0 4px #007BFF;
+}
+.tool-section.active {
+    box-shadow: 0 8px 40px 0 rgba(0,123,255,0.18), 0 1.5px 10px 0 rgba(0,0,0,0.08);
+    border: 1.5px solid #59f4ff;
+}
+@media (max-width: 700px) {
+    .tool-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        width: 98%;
+    }
+    .tool-card {
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+@media (max-width: 480px) {
+    .tool-container {
+        grid-template-columns: 1fr;
+    }
+}
+footer .fab:hover {
+    color: #59f4ff !important;
+    transform: scale(1.2);
+    transition: color 0.2s, transform 0.2s;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="social-icons">
+            <a href="https://instagram.com/alokkushwaha05" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/@Alok38603975" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@Alokkushwahaaa" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/alokkushwaha05" target="_blank"><i class="fab fa-facebook"></i></a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+        </div>
+        <h1 id="dust-effect">EazyAlok - Online Tools</h1>
+        <div class="header-auth">
+            <a href="#" class="login-btn">Login</a>
+            <a href="#" class="signup-btn">Sign Up</a>
+        </div>
+
+    </header>
+
+      <div class="tools-container">
+        <div class="tool" onclick="toggleSection('bg-remover')">
+            <i class="fas fa-cut tool-icon"></i>
+            <h2>Background Remover</h2>
+        </div>
+        <div class="tool" onclick="toggleSection('text-to-speech')">
+            <i class="fas fa-volume-up tool-icon"></i>
+            <h2>Text to Speech</h2>
+        </div>
+        <div class="tool" onclick="toggleSection('ai-chat')">
+            <i class="fas fa-robot tool-icon"></i>
+            <h2>Talk To Robot</h2>
+        </div>
+        <div class="tool" onclick="toggleSection('thumbnail-downloader')">
+            <i class="fas fa-image tool-icon"></i>
+            <h2>Thumbnail Downloader</h2>
+        </div>
+        
+        <div class="tool" onclick="toggleSection('video-downloader')">
+            <i class="fas fa-video tool-icon"></i>
+            <h2>Video Downloader</h2>
+        </div>
+        
+        <div class="tool" onclick="toggleSection('image-compressor')">
+            <i class="fas fa-compress tool-icon"></i>
+            <h2>Image Compressor</h2>
+        </div>
+        <div class="tool" onclick="toggleSection('qr-code-generator')">
+            <i class="fas fa-qrcode tool-icon"></i>
+            <h2>QR Code Generator</h2>
+        </div>
+            <!-- Add this to your tools-container -->
+<div class="tool" onclick="toggleSection('meme-generator')">
+    <i class="fas fa-laugh-squint tool-icon"></i>
+    <h2>Meme Generator</h2>
+</div>
+           <!-- Add this to your tools-container -->
+<div class="tool" onclick="toggleSection('image-upscaler')">
+    <i class="fas fa-expand tool-icon"></i>
+    <h2>Image Upscaler</h2>
+</div>
+<div class="tool" onclick="toggleSection('game-zone')">
+    <i class="fas fa-gamepad tool-icon"></i>
+    <h2>Game Zone</h2>
+</div>
+
+    </div>
+
+    <!-- Thumbnail Downloader Section -->
+    <div id="thumbnail-downloader" class="tool-section">
+        <button class="close-section" onclick="closeSection()">×</button>
+        <h2>Enter Thumbnail URL</h2>
+        <input type="text" id="thumbnail-url" placeholder="Paste thumbnail URL here">
+        <button id="download-thumbnail-btn">Download Thumbnail</button>
+        <div id="thumbnail-download-link"></div>
+    </div>
+
+    <!-- Video Downloader Section -->
+    <div id="video-downloader" class="tool-section">
+        <button class="close-section" onclick="closeSection()">×</button>
+        <h2>Enter Video URL</h2>
+        <input type="text" id="video-url" placeholder="Paste video URL here">
+        <button id="download-video-btn">Download Video</button>
+        <div id="video-download-link"></div>
+    </div>
+
+    <!-- Background Remover Tool Section -->
+    <div id="bg-remover" class="tool-section">
+        <button class="close-section" onclick="closeSection()">×</button>
+        <h2>Upload an Image</h2>
+        <input type="file" id="uploadImage" accept="image/*">
+        <button onclick="removeBackground()">Remove Background</button>
+        <h3>Processed Image:</h3>
+        <img id="resultImage" style="max-width: 100%;">
+        <button id="downloadBtn" class="download-btn" style="display: none;" onclick="downloadImage()">Download Image</button>
+    </div>
+
+    <!-- Text to Speech Tool Section -->
+    <div id="text-to-speech" class="tool-section">
+        <button class="close-section" onclick="closeSection()">×</button>
+        <h2>Enter Text</h2>
+        <textarea id="textInput" placeholder="Type your text here..."></textarea>
+        <button onclick="generateSpeech()">Generate Speech</button>
+        <h3>Generated Speech:</h3>
+        <audio id="speechAudio" controls style="display: none;"></audio>
+        <button id="downloadSpeechBtn" class="download-btn" style="display: none;" onclick="downloadSpeech()">Download Speech</button>
+    </div>
+
+    <!-- AI Chat Section -->
+    <div id="ai-chat" class="tool-section">
+        <button class="close-section" onclick="closeSection()">×</button>
+        <h2>Talk to Machine</h2>
+        <div id="chat-container">
+            <div id="chat-box"></div>
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- Image Compressor Section -->
+    <div id="image-compressor" class="tool-section">
+        <button class="close-section" onclick="closeSection()">×</button>
+        <h2>Image Compressor</h2>
+        <input type="file" id="compressInput" accept="image/*">
+        <button onclick="compressImage()" class="download-btn">Compress Image</button>
+        <div id="compressResult"></div>
+        <button id="downloadCompressedBtn" class="download-btn" style="display:none;">Download Compressed Image</button>
+    </div>
+
+    <!-- QR Code Generator Section -->
+    <div id="qr-code-generator" class="tool-section">
+        <button class="close-section" onclick="closeSection()">×</button>
+        <h2>QR Code Generator</h2>
+        <input type="text" id="qrTextInput" placeholder="Enter text here...">
+        <button onclick="generateQRCode()" class="download-btn">Generate QR Code</button>
+        <button onclick="downloadQRCode()" class="download-btn">Download QR Code</button>
+        <div id="qrcode"></div>
+    </div>
+
+
+<!-- Meme Generator Section -->
+<div id="meme-generator" class="tool-section">
+    <button class="close-section" onclick="closeSection()">×</button>
+    <h2>Create Your Meme</h2>
+    
+    <!-- Step 1: Choose Template -->
+    <div class="meme-step">
+        <h3>1. Select Template:</h3>
+        <div class="meme-templates">
+            <img src="https://i.imgflip.com/1bij.jpg" onclick="selectTemplate(this)" class="meme-template">
+            <img src="https://i.imgflip.com/1g8my.jpg" onclick="selectTemplate(this)" class="meme-template">
+            <img src="https://i.imgflip.com/9ehk.jpg" onclick="selectTemplate(this)" class="meme-template">
+        </div>
+        <p>Or upload your own image:</p>
+        <input type="file" id="meme-upload" accept="image/*">
+    </div>
+    
+    <!-- Step 2: Add Text -->
+    <div class="meme-step">
+        <h3>2. Add Text:</h3>
+        <input type="text" id="top-text" placeholder="Top text" class="meme-input">
+        <input type="text" id="bottom-text" placeholder="Bottom text" class="meme-input">
+    </div>
+    
+    <!-- Preview -->
+    <div class="meme-step">
+        <h3>Your Meme:</h3>
+        <canvas id="meme-canvas" width="500" height="500"></canvas>
+    </div>
+    
+    <button onclick="generateMeme()" class="download-btn">Generate Meme</button>
+    <button id="download-meme-btn" class="download-btn" style="display:none;">Download Meme</button>
+</div>
+ 
+<!-- Minimal Image Upscaler Section -->
+<div id="image-upscaler" class="tool-section">
+    <button class="close-section" onclick="closeSection()">×</button>
+    <h2>Upscale Your Image</h2>
+    <input type="file" id="upscale-input" accept="image/*">
+    <select id="scale-factor">
+        <option value="2">2x Scale</option>
+        <option value="4">4x Scale</option>
+    </select>
+    <button onclick="upscaleImage()" class="download-btn">Upscale Image</button>
+    <div style="margin-top:20px;">
+        <img id="upscaled-image" src="" alt="Upscaled" style="max-width:100%; display:none; border-radius:10px; box-shadow:0 2px 12px #0002;">
+    </div>
+    <button id="download-upscaled-btn" class="download-btn" style="display:none; margin-top:20px;">Download Upscaled</button>
+</div>
+
+ <!-- Updated Game Zone Section for eazyalokwebsite.html -->
+<div id="game-zone" class="tool-section">
+  <button class="close-section" onclick="closeSection()">×</button>
+  <h2 style="margin-bottom: 10px;">🎮 Game Zone</h2>
+  <p style="color: #888; margin-bottom: 30px;">Play popular open-source games below!</p>
+
+  <div class="tool-container">
+    <div class="tool-card" onclick="window.open('https://play2048.co/', '_blank')">
+      <i class="fas fa-th tool-icon"></i>
+      <h3>2048</h3>
+    </div>
+
+    <div class="tool-card" onclick="window.open('https://fossgames.com/play/tetris/', '_blank')">
+      <i class="fas fa-cubes tool-icon"></i>
+      <h3>Tetris</h3>
+    </div>
+
+    <div class="tool-card" onclick="window.open('https://nebez.github.io/floppybird/', '_blank')">
+      <i class="fas fa-dove tool-icon"></i>
+      <h3>Flappy Bird</h3>
+    </div>
+
+    <div class="tool-card" onclick="window.open('https://hextris.io/', '_blank')">
+      <i class="fas fa-dice-d6 tool-icon"></i>
+      <h3>Hextris</h3>
+    </div>
+
+    <div class="tool-card" onclick="window.open('https://www.freepacman.org/', '_blank')">
+      <i class="fas fa-dot-circle tool-icon"></i>
+      <h3>Pacman</h3>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('login-modal')">&times;</span>
+    <h2>Login</h2>
+    <form id="login-form" autocomplete="off">
+      <input type="text" id="login-username" placeholder="Username" required>
+      <input type="password" id="login-password" placeholder="Password" required>
+      <button type="submit" class="download-btn">Login</button>
+    </form>
+    <p style="margin-top:10px;">Don't have an account? <a href="#" onclick="switchModal('login-modal','signup-modal')">Sign Up</a></p>
+    <p><a href="#" onclick="showReset()">Forgot Password?</a></p>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signup-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('signup-modal')">&times;</span>
+    <h2>Sign Up</h2>
+    <form id="signup-form" autocomplete="off">
+      <input type="text" id="signup-username" placeholder="Username" required>
+      <input type="password" id="signup-password" placeholder="Password" required>
+      <input type="password" id="signup-confirm" placeholder="Confirm Password" required>
+      <label style="margin-top:10px;display:block;">Logic Question: What is 7 + 5?</label>
+      <input type="text" id="signup-logic" placeholder="Your Answer" required>
+      <button type="submit" class="download-btn">Sign Up</button>
+    </form>
+    <p style="margin-top:10px;">Already have an account? <a href="#" onclick="switchModal('signup-modal','login-modal')">Login</a></p>
+  </div>
+</div>
+
+<!-- Password Reset Modal -->
+<div id="reset-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal('reset-modal')">&times;</span>
+    <h2>Reset Password</h2>
+    <form id="reset-form" autocomplete="off">
+      <input type="text" id="reset-username" placeholder="Username" required>
+      <label style="margin-top:10px;display:block;">Logic Question: What is 7 + 5?</label>
+      <input type="text" id="reset-logic" placeholder="Your Answer" required>
+      <input type="password" id="reset-new-password" placeholder="New Password" required>
+      <button type="submit" class="download-btn">Reset Password</button>
+    </form>
+  </div>
+</div>
+      <footer style="background: #23283a; color: #fff; padding: 40px 0 20px 0; text-align: center; margin-top: 60px;">
+    <div style="max-width: 700px; margin: 0 auto;">
+        <h2 style="margin-bottom: 12px; font-size: 2rem; color: #59f4ff;">About EazyAlok</h2>
+        <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 18px;">
+            Hi, I'm <strong>Alok Kushwaha</strong> – a passionate developer (In Learning Phase) and tech enthusiast. EazyAlok is my personal project to provide you with free, easy-to-use online tools for productivity, creativity, and fun Games. 
+        </p>
+        <p style="font-size: 1.05rem; color: #b0eaff;">
+            If you have feedback, suggestions, or want to connect, find me on social media or email me at <a href="mailto:alokkushwaha05@gmail.com" style="color: #fff129; text-decoration: underline;">alokkushwaha289@gmail.com</a>.
+        </p>
+        <div style="margin-top: 20px;">
+            <a href="https://instagram.com/alokkushwaha05" target="_blank" style="color:#fff129; margin:0 10px;"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/@Alok38603975" target="_blank" style="color:#fff129; margin:0 10px;"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@Alokkushwahaaa" target="_blank" style="color:#fff129; margin:0 10px;"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/alokkushwaha05" target="_blank" style="color:#fff129; margin:0 10px;"><i class="fab fa-facebook"></i></a>
+        </div>
+        <div style="margin-top: 30px; font-size: 1rem; color: #aaa;">
+            &copy; 2025 EazyAlok. All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+    <script>
+        // Toggle tool section visibility with animation
+        function toggleSection(sectionId) {
+            const sections = document.querySelectorAll('.tool-section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.add('active');
+                    section.style.display = 'block';
+                    section.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    section.classList.remove('active');
+                    setTimeout(() => { section.style.display = 'none'; }, 600); // matches transition duration
+                }
+            });
+        }
+
+        let resultImageURL = '';
+
+        async function removeBackground() {
+            const fileInput = document.getElementById('uploadImage');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please upload an image.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image_file", file);
+            formData.append("size", "auto");
+
+            const apiKey = "drXKrHH6sAuo6STEsMBjkoDh"; // Replace with your actual API key
+
+            try {
+                const response = await fetch("https://api.remove.bg/v1.0/removebg", {
+                    method: "POST",
+                    headers: {
+                        "X-Api-Key": apiKey
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to remove background');
+                }
+
+                const data = await response.blob();
+                resultImageURL = URL.createObjectURL(data);
+
+                document.getElementById('resultImage').src = resultImageURL;
+                document.getElementById('downloadBtn').style.display = 'inline-block';
+            } catch (error) {
+                console.error(error);
+                alert("An error occurred while removing the background.");
+            }
+        }
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.href = resultImageURL;
+            link.download = "processed-image.png";
+            link.click();
+        }
+
+        // Thumbnail Downloader
+        document.getElementById('download-thumbnail-btn').addEventListener('click', function() {
+            const url = document.getElementById('thumbnail-url').value;
+            const downloadLinkContainer = document.getElementById('thumbnail-download-link');
+            if (!url) {
+                alert("Please enter a thumbnail URL.");
+                return;
+            }
+            // Placeholder logic: just show the image
+            downloadLinkContainer.innerHTML = `<img src="${url}" alt="Thumbnail" style="max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);" />`;
+        });
+
+        // Video Downloader
+        document.getElementById('download-video-btn').addEventListener('click', function() {
+            const videoUrl = document.getElementById('video-url').value;
+            const downloadLinkContainer = document.getElementById('video-download-link');
+            if (!videoUrl) {
+                alert("Please enter a valid video URL.");
+                return;
+            }
+            // Placeholder logic for now:
+            downloadLinkContainer.innerHTML = `
+                <p>Video download link is ready! <a href="${videoUrl}" download>Click to Download</a></p>
+            `;
+        });
+
+        // Text-to-Speech API (VoiceRSS)
+        async function generateSpeech() {
+            const text = document.getElementById('textInput').value;
+            if (!text) {
+                alert("Please enter some text.");
+                return;
+            }
+
+            const apiKey = "ap2_67625d71-5cb8-4ab1-8fbc-7bd40034c0e1"; // Replace with your actual API key
+            const url = `https://api.voicerss.org/?key=${apiKey}&hl=en-us&src=${encodeURIComponent(text)}`;
+
+            const audio = document.getElementById('speechAudio');
+            audio.src = url;
+            audio.style.display = 'block';
+
+            const downloadBtn = document.getElementById('downloadSpeechBtn');
+            downloadBtn.style.display = 'inline-block';
+        }
+
+        function downloadSpeech() {
+            const audio = document.getElementById('speechAudio');
+            const url = audio.src;
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = "generated-speech.mp3";
+            link.click();
+        }
+
+        // AI Chat
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            const chatBox = document.getElementById('chat-box');
+
+            if (!userInput.trim()) {
+                alert("Please enter a message.");
+                return;
+            }
+
+            // Display user message
+            const userMessage = document.createElement('div');
+            userMessage.style.marginBottom = '10px';
+            userMessage.innerHTML = `<strong>You:</strong> ${userInput}`;
+            chatBox.appendChild(userMessage);
+
+            // Clear input field
+            document.getElementById('userInput').value = '';
+
+            // Display AI typing indicator
+            const aiTyping = document.createElement('div');
+            aiTyping.id = 'ai-typing';
+            aiTyping.style.marginBottom = '10px';
+            aiTyping.innerHTML = `<em>AI is typing...</em>`;
+            chatBox.appendChild(aiTyping);
+
+            // Scroll to the bottom of the chat box
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                // Call AI API (replace with your API key and endpoint)
+                const apiKey = "557b884d8eac4bc5a0c722bc4d05b234"; // Replace with your OpenAI or other AI API key
+                const response = await fetch("https://api.openai.com/v1/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: "text-davinci-003",
+                        prompt: userInput,
+                        max_tokens: 150
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch AI response.");
+                }
+
+                const data = await response.json();
+                const aiResponse = data.choices[0].text.trim();
+
+                // Remove AI typing indicator
+                document.getElementById('ai-typing').remove();
+
+                // Display AI response
+                const aiMessage = document.createElement('div');
+                aiMessage.style.marginBottom = '10px';
+                aiMessage.innerHTML = `<strong>AI:</strong> ${aiResponse}`;
+                chatBox.appendChild(aiMessage);
+
+                // Scroll to the bottom of the chat box
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                console.error(error);
+
+                // Remove AI typing indicator
+                document.getElementById('ai-typing').remove();
+
+                // Display error message
+                const errorMessage = document.createElement('div');
+                errorMessage.style.marginBottom = '10px';
+                errorMessage.innerHTML = `<strong>AI:</strong> Sorry, I couldn't process your request. Please try again later.`;
+                chatBox.appendChild(errorMessage);
+
+                // Scroll to the bottom of the chat box
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let text = document.getElementById("dust-effect");
+            let letters = text.innerText.split("");
+            text.innerHTML = letters.map(letter => `<span class="letter">${letter}</span>`).join("");
+            anime.timeline()
+                .add({
+                    targets: ".letter",
+                    translateX: () => anime.random(-50, 50),
+                    translateY: () => anime.random(-50, 50),
+                    opacity: 0,
+                    duration: 1000,
+                    easing: "easeOutExpo",
+                    delay: anime.stagger(50)
+                })
+                .add({
+                    targets: ".letter",
+                    translateX: 0,
+                    translateY: 0,
+                    opacity: 1,
+                    duration: 1000,
+                    easing: "easeOutExpo",
+                    delay: anime.stagger(50)
+                });
+        });
+         // Theme toggle logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+    function setTheme(night) {
+        document.body.classList.toggle('night-mode', night);
+        themeIcon.className = night ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    // Load theme from localStorage
+    const night = localStorage.getItem('night-mode') === 'true';
+    setTheme(night);
+    themeToggle.onclick = () => {
+        const isNight = !document.body.classList.contains('night-mode');
+        setTheme(isNight);
+        localStorage.setItem('night-mode', isNight);
+    };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+    let qrcode;
+
+    function generateQRCode() {
+        const text = document.getElementById('qrTextInput').value;
+        const qrcodeContainer = document.getElementById('qrcode');
+        qrcodeContainer.innerHTML = '';
+        if (text.trim() === '') {
+            alert('Please enter some text!');
+            return;
+        }
+        qrcode = new QRCode(qrcodeContainer, {
+            text: text,
+            width: 200,
+            height: 200
+        });
+    }
+
+    function downloadQRCode() {
+        if (!qrcode) {
+            alert('Please generate a QR code first!');
+            return;
+        }
+        const qrCanvas = document.querySelector('#qrcode canvas');
+        if (qrCanvas) {
+            const imgData = qrCanvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = imgData;
+            link.download = 'qrcode.png';
+            link.click();
+        } else {
+            alert('QR code not found!');
+        }
+    }
+    let compressedImageURL = '';
+function compressImage() {
+    const input = document.getElementById('compressInput');
+    const file = input.files[0];
+    const resultDiv = document.getElementById('compressResult');
+    const downloadBtn = document.getElementById('downloadCompressedBtn');
+    resultDiv.innerHTML = '';
+    downloadBtn.style.display = 'none';
+
+    if (!file) {
+        alert('Please select an image!');
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const maxW = 600;
+            const scale = Math.min(1, maxW / img.width);
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            compressedImageURL = canvas.toDataURL('image/jpeg', 0.6);
+            resultDiv.innerHTML = `<img src="${compressedImageURL}" style="max-width:100%;border-radius:8px;box-shadow:0 2px 8px #0001;">`;
+            downloadBtn.style.display = 'inline-block';
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+document.getElementById('downloadCompressedBtn').onclick = function() {
+    if (!compressedImageURL) return;
+    const link = document.createElement('a');
+    link.href = compressedImageURL;
+    link.download = 'compressed-image.jpg';
+    link.click();
+};
+let memeImage = null;
+function selectTemplate(imgElem) {
+    memeImage = new Image();
+    memeImage.crossOrigin = "anonymous";
+    memeImage.src = imgElem.src;
+    memeImage.onload = function() {
+        drawMeme();
+    };
+}
+// ...existing code...
+document.getElementById('meme-upload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+        memeImage = new Image();
+        memeImage.src = ev.target.result;
+        memeImage.onload = function() {
+            drawMeme();
+        };
+    };
+    reader.readAsDataURL(file);
+});
+function drawMeme() {
+    const canvas = document.getElementById('meme-canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (!memeImage) return;
+    ctx.drawImage(memeImage, 0, 0, canvas.width, canvas.height);
+    ctx.font = "bold 36px Impact, Arial";
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 3;
+    ctx.textAlign = "center";
+    // Top text
+    const topText = document.getElementById('top-text').value.toUpperCase();
+    ctx.fillText(topText, canvas.width / 2, 50);
+    ctx.strokeText(topText, canvas.width / 2, 50);
+    // Bottom text
+    const bottomText = document.getElementById('bottom-text').value.toUpperCase();
+    ctx.fillText(bottomText, canvas.width / 2, canvas.height - 20);
+    ctx.strokeText(bottomText, canvas.width / 2, canvas.height - 20);
+}
+function generateMeme() {
+    drawMeme();
+    document.getElementById('download-meme-btn').style.display = 'inline-block';
+}
+document.getElementById('download-meme-btn').onclick = function() {
+    const canvas = document.getElementById('meme-canvas');
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'meme.png';
+    link.click();
+};
+document.getElementById('top-text').addEventListener('input', drawMeme);
+document.getElementById('bottom-text').addEventListener('input', drawMeme);
+
+let upscaledImageURL = '';
+document.getElementById('upscale-input').addEventListener('change', function(e) {
+    // Optionally preview original image if you want
+});
+
+function upscaleImage() {
+    const input = document.getElementById('upscale-input');
+    const file = input.files[0];
+    if (!file) {
+        alert('Please upload an image first!');
+        return;
+    }
+    const scale = parseInt(document.getElementById('scale-factor').value, 10);
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+            const ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            upscaledImageURL = canvas.toDataURL('image/png');
+            const upscaledImgElem = document.getElementById('upscaled-image');
+            upscaledImgElem.src = upscaledImageURL;
+            upscaledImgElem.style.display = 'block';
+            document.getElementById('download-upscaled-btn').style.display = 'inline-block';
+        };
+        img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+document.getElementById('download-upscaled-btn').onclick = function() {
+    if (!upscaledImageURL) return;
+    const link = document.createElement('a');
+    link.href = upscaledImageURL;
+    link.download = 'upscaled-image.png';
+    link.click();
+};
+function closeSection() {
+    const sections = document.querySelectorAll('.tool-section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+        setTimeout(() => { section.style.display = 'none'; }, 600); // matches transition duration
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+// Modal open/close logic
+function openModal(id) {
+  document.getElementById(id).style.display = 'flex';
+}
+function closeModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+function switchModal(closeId, openId) {
+  closeModal(closeId);
+  setTimeout(() => openModal(openId), 200);
+}
+function showReset() {
+  closeModal('login-modal');
+  setTimeout(() => openModal('reset-modal'), 200);
+}
+
+// Open modals from header buttons
+document.querySelector('.login-btn').onclick = function(e) {
+  e.preventDefault();
+  openModal('login-modal');
+};
+document.querySelector('.signup-btn').onclick = function(e) {
+  e.preventDefault();
+  openModal('signup-modal');
+};
+
+// Signup logic with logic question
+document.getElementById('signup-form').onsubmit = function(e) {
+  e.preventDefault();
+  const username = document.getElementById('signup-username').value.trim();
+  const password = document.getElementById('signup-password').value;
+  const confirm = document.getElementById('signup-confirm').value;
+  const logic = document.getElementById('signup-logic').value.trim();
+  if (password !== confirm) {
+    showToas('Passwords do not match!');
+    return;
+  }
+  if (logic !== '12') {
+ showToast('Logic question incorrect!');
+    return;
+  }
+  // Save user (for demo, use localStorage)
+  localStorage.setItem('user-' + username, JSON.stringify({ password }));
+ showToast('Signup successful! You can now login.');
+  closeModal('signup-modal');
+  openModal('login-modal');
+};
+
+// Login logic
+document.getElementById('login-form').onsubmit = function(e) {
+  e.preventDefault();
+  const username = document.getElementById('login-username').value.trim();
+  const password = document.getElementById('login-password').value;
+  const user = JSON.parse(localStorage.getItem('user-' + username) || '{}');
+  if (!user.password || user.password !== password) {
+    alert('Invalid username or password!');
+    return;
+  }
+ showToast('Login successful!');
+  closeModal('login-modal');
+};
+
+// Password reset logic
+document.getElementById('reset-form').onsubmit = function(e) {
+  e.preventDefault();
+  const username = document.getElementById('reset-username').value.trim();
+  const logic = document.getElementById('reset-logic').value.trim();
+  const newPassword = document.getElementById('reset-new-password').value;
+  if (logic !== '12') {
+   showToast('Logic question incorrect!');
+    return;
+  }
+  const user = JSON.parse(localStorage.getItem('user-' + username) || '{}');
+  if (!user.password) {
+    showToast('User not found!');
+    return;
+  }
+  user.password = newPassword;
+  localStorage.setItem('user-' + username, JSON.stringify(user));
+ showToast('Signup successful! You can now login.', "#59f4ff");
+  closeModal('reset-modal');
+  openModal('login-modal');
+};
+
+// Close modal on outside click
+window.onclick = function(event) {
+  document.querySelectorAll('.modal').forEach(modal => {
+    if (event.target === modal) modal.style.display = "none";
+  });
+};
+function showToast(msg, color="#23283a") {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.style.background = color;
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 2200);
+}
+document.addEventListener('keydown', function(e) {
+    if (e.key === "Escape") {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.style.display = "none";
+        });
+    }
+});
+document.getElementById('spinner').style.display = 'flex'; // show
+document.getElementById('spinner').style.display = 'none'; // hide
+</script>
+<div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#23283a;color:#fff;padding:14px 28px;border-radius:8px;box-shadow:0 2px 12px #0005;z-index:9999;display:none;font-size:1.1rem;"></div>
+<div id="spinner" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2000;background:rgba(0,0,0,0.18);align-items:center;justify-content:center;">
+  <div style="border:6px solid #eee;border-top:6px solid #59f4ff;border-radius:50%;width:48px;height:48px;animation:spin 1s linear infinite;"></div>
+</div>
+</body>
+</html>
