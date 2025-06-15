@@ -35,6 +35,11 @@
             align-items: center;
             position: relative;
         }
+        header {
+    /* ...existing styles... */
+    border-bottom: 1.3px solid #000000; /* Thin line under header */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03); /* (Optional) subtle shadow */
+}
         .social-icons {
             justify-self: start;
         }
@@ -63,7 +68,7 @@
 
         h1:hover {
             transform: scale(1.1);
-            color: #f5feff;
+            color: #ff00d9;
         }
 
         @keyframes fire {
@@ -92,8 +97,8 @@
 
         .social-icons a:hover {
             transform: scale(1.2);
-            color: #ffeb3b;
-            box-shadow: 0 0 10px #ffeb3b;
+            color: #ffee32;
+            box-shadow: 0 0 10px #000000;
         }
 
         /* Sign-up/Login Buttons */
@@ -106,23 +111,24 @@
             z-index: 2;
         }
         .login-btn, .signup-btn {
-            background: #ffffff;
-            color: #000000;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: none;
-            outline: none;
-            margin: 0;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        .login-btn:hover, .signup-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 0px 10px #000000;
-        }
+    background: #ffffff;
+    color: #000000;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.2s;
+    border: 1px solid #000000;   /* Thin border */
+    outline: none;
+    margin: 0;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.login-btn:hover, .signup-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px #000000;
+    border-color: #59f4ff; /* Optional: highlight border on hover */
+}
         @media (max-width: 600px) {
             .header-auth {
                 position: static;
@@ -142,47 +148,47 @@
         }
 
         /* Alluring animation for tool cards */
-        .tool {
-            width: 150px;
-            height: 150px;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            transition: 
-                transform 0.4s cubic-bezier(.25,1.7,.45,.87), 
-                box-shadow 0.4s cubic-bezier(.25,1.7,.45,.87),
-                filter 0.4s;
-            will-change: transform, box-shadow, filter;
-        }
-        .tool:hover {
-            transform: translateY(-10px) scale(1.07) rotate(-2deg);
-            box-shadow: 0 8px 40px 0 rgba(0,123,255,0.25), 0 1.5px 10px 0 rgba(0,0,0,0.08);
-            filter: brightness(1.08) saturate(1.2);
-        }
-
-        .tool-icon {
-            font-size: 40px;
-            color: #00bfff;
-            margin-bottom: 10px;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .tool-icon:hover {
-            transform: scale(1.5) rotate(10deg);
-            color: #10ffab;
-        }
-
+       .tool {
+    min-width: 110px;
+    width: 110px;
+    height: 110px;
+    padding: 10px 0 6px 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.18s, box-shadow 0.18s;
+    border: 1px solid #e0e0e0;
+    font-size: 0.92rem;
+}
+.tool:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 6px 18px 0 rgba(0,123,255,0.13);
+}
+.tool-icon {
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: #ffffff;
+    transition: transform 0.3s, color 0.3s;
+}
+.tool-icon:hover {
+    transform: scale(1.2);
+    color: #ff4500;
+}
+.tool h2 {
+    font-size: 0.98rem;
+    margin: 6px 0 0 0;
+    font-weight: 600;
+}
         /* Fade-in animation for tool sections */
         .tool-section {
             display: none;
             padding: 20px;
-            background: #e6e6e6;
+            background: #ffffff;
             border-radius: 10px;
-            box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 1px 1px 25px rgba(105, 47, 152, 0.1);
             max-width: 80%;
             margin-left: auto;
             margin-right: auto;
@@ -226,10 +232,9 @@
             color: #ae00ff;
             transition: color 0.3s, transform 0.3s;
         }
-
         .tool .fa-robot:hover {
-            color: #ff4500;
-            transform: scale(1.5) rotate(10deg);
+            transform: scale(1.2);
+    color: #ff4500;
         }
 
         .fire-text {
@@ -465,6 +470,72 @@ footer .fab:hover {
   0% { transform: rotate(0deg);}
   100% { transform: rotate(360deg);}
 }
+.tool {
+    background: var(--card);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 35px 20 20px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s;
+    position: relative;
+    border: 1px solid #000000; /* Add this line for a thin border */
+}
+
+ .slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+  padding: 10px 0;
+}
+.slider-track {
+  display: flex;
+  gap: 20px;
+  animation: scroll 25s linear infinite;
+}
+.slider-wrapper:hover .slider-track {
+  animation-play-state: paused;
+}
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes animateBorder {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+    .tool {
+      min-width: 180px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .tool:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 768px) {
+      .slider-track {
+        animation-duration: 40s;
+      }
+
+      .tool {
+        min-width: 140px;
+        font-size: 0.9rem;
+      }
+    }
+    
     </style>
 </head>
 <body>
@@ -487,6 +558,84 @@ footer .fab:hover {
     </header>
 
       <div class="tools-container">
+<!-- SLIDER WRAPPER START -->
+<div class="slider-wrapper">
+  <div class="slider-track">
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('bg-remover')">
+        <i class="fas fa-cut tool-icon"></i>
+        <h2>Background Remover</h2>
+      </div>
+    </div>
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('text-to-speech')">
+        <i class="fas fa-volume-up tool-icon"></i>
+        <h2>Text to Speech</h2>
+      </div>
+    </div>
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('ai-chat')">
+        <i class="fas fa-robot tool-icon"></i>
+        <h2>Talk To Robot</h2>
+      </div>
+    </div>
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('thumbnail-downloader')">
+        <i class="fas fa-image tool-icon"></i>
+        <h2>Thumbnail Downloader</h2>
+      </div>
+    </div>
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('video-downloader')">
+        <i class="fas fa-video tool-icon"></i>
+        <h2>Video Downloader</h2>
+      </div>
+    </div>
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('image-compressor')">
+        <i class="fas fa-compress tool-icon"></i>
+        <h2>Image Compressor</h2>
+      </div>
+    </div>
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('qr-code-generator')">
+        <i class="fas fa-qrcode tool-icon"></i>
+        <h2>QR Code Generator</h2>
+      </div>
+    </div>
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('meme-generator')">
+        <i class="fas fa-laugh-squint tool-icon"></i>
+        <h2>Meme Generator</h2>
+      </div>
+    </div>
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('image-upscaler')">
+        <i class="fas fa-expand tool-icon"></i>
+        <h2>Image Upscaler</h2>
+      </div>
+    </div>
+
+    <div class="tool-border">
+      <div class="tool" onclick="toggleSection('game-zone')">
+        <i class="fas fa-gamepad tool-icon"></i>
+        <h2>Game Zone</h2>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- SLIDER WRAPPER END -->
+
         <div class="tool" onclick="toggleSection('bg-remover')">
             <i class="fas fa-cut tool-icon"></i>
             <h2>Background Remover</h2>
@@ -517,12 +666,12 @@ footer .fab:hover {
             <i class="fas fa-qrcode tool-icon"></i>
             <h2>QR Code Generator</h2>
         </div>
-            <!-- Add this to your tools-container -->
+
 <div class="tool" onclick="toggleSection('meme-generator')">
     <i class="fas fa-laugh-squint tool-icon"></i>
     <h2>Meme Generator</h2>
 </div>
-           <!-- Add this to your tools-container -->
+
 <div class="tool" onclick="toggleSection('image-upscaler')">
     <i class="fas fa-expand tool-icon"></i>
     <h2>Image Upscaler</h2>
@@ -531,8 +680,6 @@ footer .fab:hover {
     <i class="fas fa-gamepad tool-icon"></i>
     <h2>Game Zone</h2>
 </div>
-
-    </div>
 
     <!-- Thumbnail Downloader Section -->
     <div id="thumbnail-downloader" class="tool-section">
@@ -656,6 +803,7 @@ footer .fab:hover {
     <button id="download-upscaled-btn" class="download-btn" style="display:none; margin-top:20px;">Download Upscaled</button>
 </div>
 
+
  <!-- Updated Game Zone Section for eazyalokwebsite.html -->
 <div id="game-zone" class="tool-section">
   <button class="close-section" onclick="closeSection()">×</button>
@@ -740,10 +888,10 @@ footer .fab:hover {
     <div style="max-width: 700px; margin: 0 auto;">
         <h2 style="margin-bottom: 12px; font-size: 2rem; color: #59f4ff;">About EazyAlok</h2>
         <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 18px;">
-            Hi, I'm <strong>Alok Kushwaha</strong> – a passionate developer (In Learning Phase) and tech enthusiast. EazyAlok is my personal project to provide you with free, easy-to-use online tools for productivity, creativity, and fun Games. 
+            Hi, I'm <strong>Alok Kushwaha</strong> – a passionate developer (In Learning Phase) and tech enthusiast. EazyAlok is my personal project to provide you with free, easy-to-use online tools for productivity, creativity, and fun. Whether you need to remove backgrounds, generate memes, compress images, or chat with AI, EazyAlok is here to help you get things done quickly and simply.
         </p>
         <p style="font-size: 1.05rem; color: #b0eaff;">
-            If you have feedback, suggestions, or want to connect, find me on social media or email me at <a href="mailto:alokkushwaha05@gmail.com" style="color: #fff129; text-decoration: underline;">alokkushwaha289@gmail.com</a>.
+            If you have feedback, suggestions, or want to connect, find me on social media or email me at <a href="mailto:alokkushwaha289@gmail.com" style="color: #fff129; text-decoration: underline;">alokkushwaha289@gmail.com</a>.
         </p>
         <div style="margin-top: 20px;">
             <a href="https://instagram.com/alokkushwaha05" target="_blank" style="color:#fff129; margin:0 10px;"><i class="fab fa-instagram"></i></a>
@@ -753,7 +901,7 @@ footer .fab:hover {
         </div>
         <div style="margin-top: 30px; font-size: 1rem; color: #aaa;">
             &copy; 2025 EazyAlok. All Rights Reserved.
-             <a href="mailto:alokkushwaha289@gmail.com" style="color: #fff129; text-decoration: underline;">Contact Us</a>.
+            <a href="mailto:alokkushwaha289@gmail.com" style="color: #fff129; text-decoration: underline;">Contact Us</a>.
         </div>
     </div>
 </footer>
@@ -1283,6 +1431,10 @@ document.addEventListener('keydown', function(e) {
         });
     }
 });
+document.getElementById('theme-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
+
 document.getElementById('spinner').style.display = 'flex'; // show
 document.getElementById('spinner').style.display = 'none'; // hide
 </script>
