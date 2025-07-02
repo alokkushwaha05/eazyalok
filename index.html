@@ -911,7 +911,11 @@ footer .fab:hover {
     text-shadow: 0 0 6px #8fd34644, 0 0 0px #fff;
   }
 }
-    
+    @media (max-width: 400px) {
+  .tool-card h3 { font-size: 0.9rem; }
+  .modal-content { width: 95vw; }
+}
+
     </style>
 </head>
 <body>
@@ -932,6 +936,16 @@ footer .fab:hover {
         </div>
 
     </header>
+    <!-- Tool Search Bar (above slider-wrapper) -->
+<div style="text-align:center; margin: 30px auto 10px auto;">
+  <input type="text" id="tool-search" placeholder="Search tools..."
+    style="padding: 10px 20px; width: 90%; max-width: 400px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+</div>
+<!-- Scroll-to-top button -->
+<button id="scrollTopBtn" title="Go to top"
+  style="position: fixed; bottom: 30px; right: 20px; display: none; background: #007BFF; color: white; border: none; padding: 12px 18px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); cursor: pointer; z-index: 1000;">
+  ↑ Top
+</button>
 
       <div class="tools-container">
 <!-- SLIDER WRAPPER START -->
@@ -1213,6 +1227,18 @@ footer .fab:hover {
     </div>
   </div>
 </div>
+<!-- Login-based Dashboard Section -->
+<div id="user-dashboard" style="display:none; margin: 40px auto; max-width: 800px; padding: 20px; background: #f8f9fa; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center;">
+  <h2 style="margin-bottom: 20px; color: #007BFF;">Welcome, <span id="dashboard-user"></span>!</h2>
+  <p style="font-size: 1.1rem; color: #555;">Here are your quick links and activity summary:</p>
+  <div style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;">
+    <button onclick="toggleSection('bg-remover')" class="download-btn">Background Remover</button>
+    <button onclick="toggleSection('text-to-speech')" class="download-btn">Text to Speech</button>
+    <button onclick="toggleSection('ai-chat')" class="download-btn">Talk to AI</button>
+    <button onclick="toggleSection('qr-code-generator')" class="download-btn">QR Generator</button>
+  </div>
+  <button onclick="logoutUser()" style="margin-top: 30px; background: #dc3545; color: #fff; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Logout</button>
+</div>
 
 <!-- Login Modal -->
 <div id="login-modal" class="modal">
@@ -1261,23 +1287,38 @@ footer .fab:hover {
   </div>
 </div>
       <footer style="background: #23283a; color: #fff; padding: 40px 0 20px 0; text-align: center; margin-top: 60px;">
-    <div style="max-width: 700px; margin: 0 auto;">
-        <h2 style="margin-bottom: 12px; font-size: 2rem; color: #59f4ff;">About EazyAlok</h2>
-        <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 18px;">
-            Hi, I'm <strong>Alok Kushwaha</strong> – a passionate developer (In Learning Phase) and tech enthusiast. EazyAlok is my personal project to provide you with free, easy-to-use online tools for productivity, creativity, and fun. Whether you need to remove backgrounds, generate memes, compress images, or chat with AI, EazyAlok is here to help you get things done quickly and simply.
-        </p>
-        <p style="font-size: 1.05rem; color: #b0eaff;">
-            If you have feedback, suggestions, or want to connect, find me on social media or email me at <a href="mailto:alokkushwaha289@gmail.com" style="color: #fff129; text-decoration: underline;">alokkushwaha289@gmail.com</a>.
-        </p>
-        <div style="margin-top: 20px;">
-            <a href="https://instagram.com/alokkushwaha05" target="_blank" style="color:#fff129; margin:0 10px;"><i class="fab fa-instagram"></i></a>
-            <a href="https://twitter.com/@Alok38603975" target="_blank" style="color:#fff129; margin:0 10px;"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@Alokkushwahaaa" target="_blank" style="color:#fff129; margin:0 10px;"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.facebook.com/alokkushwaha05" target="_blank" style="color:#fff129; margin:0 10px;"><i class="fab fa-facebook"></i></a>
+  <div style="max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding: 0 20px;">
+    
+    <!-- Left: Paragraph Section -->
+    <div style="flex: 1; min-width: 300px; text-align: left;">
+      <h2 style="margin-bottom: 12px; font-size: 2rem; color: #59f4ff;">About EazyAlok</h2>
+      <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 18px;">
+        Hi, I'm <strong>Alok Kushwaha</strong> – a passionate developer (In Learning Phase) and tech enthusiast. EazyAlok is my personal project to provide you with free, easy-to-use online tools for productivity, creativity, and fun. Whether you need to remove backgrounds, generate memes, compress images, or chat with AI, EazyAlok is here to help you get things done quickly and simply.
+      </p>
+      <p style="font-size: 1.05rem; color: #b0eaff;">
+        If you have feedback, suggestions, or want to connect, find me on social media or email me at
+        <a href="mailto:alokkushwaha289@gmail.com" style="color: #fff129; text-decoration: underline;">alokkushwaha289@gmail.com</a>.
+      </p>
+    </div>
+
+    <!-- Right: Image Section -->
+    <div style="flex: 0 0 180px; text-align: center;">
+      <img src="https://i.postimg.cc/Y2fhLV28/ssssalok.jpg" alt="Alok Kushwaha"
+           style="width: 180px; height: 180px; border-radius: 12px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+    </div>
+
+  </div>
+</footer>
+
+        <div style="margin-top: 30px;">
+            <a href="https://instagram.com/alokkushwaha05" target="_blank" style="color:#2bcdff; margin:0 10px;"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/@Alok38603975" target="_blank" style="color:#2bcdff; margin:0 10px;"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@Alokkushwahaaa" target="_blank" style="color:#2bcdff; margin:0 10px;"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/alokkushwaha05" target="_blank" style="color:#2bcdff; margin:0 10px;"><i class="fab fa-facebook"></i></a>
         </div>
-        <div style="margin-top: 30px; font-size: 1rem; color: #aaa;">
+        <div style="margin-top: 30px; font-size: 1rem; color: #000000;">
             &copy; 2025 EazyAlok. All Rights Reserved.
-            <a href="mailto:alokkushwaha289@gmail.com" style="color: #fff129; text-decoration: underline;">Contact Us</a>.
+            <a href="mailto:alokkushwaha289@gmail.com" style="color: #2bcdff; text-decoration: underline;">Contact Us</a>.
         </div>
     </div>
 </footer>
@@ -1785,8 +1826,72 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
 
+
 document.getElementById('spinner').style.display = 'flex'; // show
 document.getElementById('spinner').style.display = 'none'; // hide
+</script>
+<script>
+  // Tool search filter
+  document.getElementById("tool-search").addEventListener("input", function () {
+    const keyword = this.value.toLowerCase();
+    const tools = document.querySelectorAll(".tool-border, .tool");
+
+    tools.forEach(tool => {
+      const name = tool.textContent.toLowerCase();
+      if (name.includes(keyword)) {
+        tool.style.display = "block";
+      } else {
+        tool.style.display = "none";
+      }
+    });
+  });
+</script>
+<script>
+  // Simulate dashboard logic using localStorage user data
+  function showDashboard(username) {
+    document.getElementById('dashboard-user').textContent = username;
+    document.getElementById('user-dashboard').style.display = 'block';
+  }
+
+  function logoutUser() {
+    localStorage.removeItem('loggedInUser');
+    location.reload();
+  }
+
+  // Check login state
+  const savedUser = localStorage.getItem('loggedInUser');
+  if (savedUser) {
+    showDashboard(savedUser);
+  }
+
+  // Extend existing login logic
+  const originalLogin = document.getElementById('login-form')?.onsubmit;
+  if (originalLogin) {
+    document.getElementById('login-form').onsubmit = function(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+      const user = JSON.parse(localStorage.getItem('user-' + username) || '{}');
+      if (!user.password || user.password !== password) {
+        alert('Invalid username or password!');
+        return;
+      }
+      localStorage.setItem('loggedInUser', username);
+      showDashboard(username);
+      closeModal('login-modal');
+    }
+  }
+</script>
+<script>
+  const scrollBtn = document.getElementById("scrollTopBtn");
+
+  window.onscroll = function () {
+    scrollBtn.style.display = document.documentElement.scrollTop > 300 ? "block" : "none";
+  };
+
+  scrollBtn.onclick = function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 </script>
 <div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#23283a;color:#fff;padding:14px 28px;border-radius:8px;box-shadow:0 2px 12px #0005;z-index:9999;display:none;font-size:1.1rem;"></div>
 <div id="spinner" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2000;background:rgba(0,0,0,0.18);align-items:center;justify-content:center;">
