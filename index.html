@@ -1411,34 +1411,41 @@ footer .fab:hover {
                 <p>Video download link is ready! <a href="${videoUrl}" download>Click to Download</a></p>
             `;
         });
+async function generateSpeech() {
+    const text = document.getElementById('textInput').value;
+    if (!text) {
+        alert("Please enter some text.");
+        return;
+    }
 
-        // Text-to-Speech API (VoiceRSS)
-        async function generateSpeech() {
-            const text = document.getElementById('textInput').value;
-            if (!text) {
-                alert("Please enter some text.");
-                return;
-            }
+    const response = await fetch("https://tts-api-backend.onrender.com/api/tts", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text })
+    });
 
-            const apiKey = "ap2_67625d71-5cb8-4ab1-8fbc-7bd40034c0e1"; // Replace with your actual API key
-            const url = `https://api.voicerss.org/?key=${apiKey}&hl=en-us&src=${encodeURIComponent(text)}`;
+    if (!response.ok) {
+        alert("Failed to generate speech");
+        return;
+    }
 
-            const audio = document.getElementById('speechAudio');
-            audio.src = url;
-            audio.style.display = 'block';
+    const blob = await response.blob();
+    const audioUrl = URL.createObjectURL(blob);
 
-            const downloadBtn = document.getElementById('downloadSpeechBtn');
-            downloadBtn.style.display = 'inline-block';
-        }
+    const audio = document.getElementById('speechAudio');
+    audio.src = audioUrl;
+    audio.style.display = 'block';
 
-        function downloadSpeech() {
-            const audio = document.getElementById('speechAudio');
-            const url = audio.src;
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = "generated-speech.mp3";
-            link.click();
-        }
+    const downloadBtn = document.getElementById('downloadSpeechBtn');
+    downloadBtn.href = audioUrl;
+    downloadBtn.download = "generated-speech.mp3";
+    downloadBtn.style.display = 'inline-block';
+}
+
+
+
 
       // AI Chat
 async function sendMessage() {
