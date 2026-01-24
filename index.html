@@ -757,23 +757,27 @@ footer .fab:hover {
             padding: 10px 0;
             position: relative;
         }
-
         .slider-track {
-            display: flex;
-            gap: 20px;
-            animation: scroll 25s linear infinite;
-            min-width: max-content;
-        }
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
 
         .slider-wrapper:hover .slider-track {
             animation-play-state: paused;
         }
 
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
+       
         .tool-border {
             position: relative;
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
@@ -822,12 +826,7 @@ footer .fab:hover {
             filter: brightness(1.1);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
-  .slider-track::after {
-            content: '';
-            display: flex;
-            gap: 20px;
-        }
-
+  
         /* Responsive design */
         @media (max-width: 768px) {
             .slider-track {
@@ -1118,6 +1117,55 @@ model-viewer:hover {
     </div>
 
     <div class="tool-border">
+  <div class="tool" onclick="toggleSection('calculator')">
+    <i class="fas fa-calculator tool-icon"></i>
+    <h2>Calculator</h2>
+  </div>
+</div>
+
+<div class="tool-border">
+  <div class="tool" onclick="toggleSection('bmi-calculator')">
+    <i class="fas fa-weight tool-icon"></i>
+    <h2>BMI Calculator</h2>
+  </div>
+</div>
+
+<div class="tool-border">
+  <div class="tool" onclick="toggleSection('age-calculator')">
+    <i class="fas fa-birthday-cake tool-icon"></i>
+    <h2>Age Calculator</h2>
+  </div>
+</div>
+
+<div class="tool-border">
+  <div class="tool" onclick="toggleSection('unit-converter')">
+    <i class="fas fa-exchange-alt tool-icon"></i>
+    <h2>Unit Converter</h2>
+  </div>
+</div>
+
+<div class="tool-border">
+  <div class="tool" onclick="toggleSection('password-generator')">
+    <i class="fas fa-key tool-icon"></i>
+    <h2>Password Generator</h2>
+  </div>
+</div>
+
+<div class="tool-border">
+  <div class="tool" onclick="toggleSection('number-converter')">
+    <i class="fas fa-sort-numeric-up tool-icon"></i>
+    <h2>Number Converter</h2>
+  </div>
+</div>
+
+<div class="tool-border">
+  <div class="tool" onclick="toggleSection('stopwatch')">
+    <i class="fas fa-stopwatch tool-icon"></i>
+    <h2>Stopwatch</h2>
+  </div>
+</div>
+
+    <div class="tool-border">
       <div class="tool" onclick="toggleSection('game-zone')">
         <i class="fas fa-gamepad tool-icon"></i>
         <h2>Game Zone</h2>
@@ -1168,10 +1216,71 @@ model-viewer:hover {
     <i class="fas fa-expand tool-icon"></i>
     <h2>Image Upscaler</h2>
 </div>
+<!-- Calculator -->
+<div class="tool" onclick="toggleSection('calculator')">
+  <i class="fas fa-calculator tool-icon"></i>
+  <h2>Calculator</h2>
+</div>
+
+<!-- BMI Calculator -->
+<div class="tool" onclick="toggleSection('bmi-calculator')">
+  <i class="fas fa-weight tool-icon"></i>
+  <h2>BMI Calculator</h2>
+</div>
+
+<!-- Age Calculator -->
+<div class="tool" onclick="toggleSection('age-calculator')">
+  <i class="fas fa-birthday-cake tool-icon"></i>
+  <h2>Age Calculator</h2>
+</div>
+
+<!-- Unit Converter -->
+<div class="tool" onclick="toggleSection('unit-converter')">
+  <i class="fas fa-exchange-alt tool-icon"></i>
+  <h2>Unit Converter</h2>
+</div>
+
+<!-- Password Generator -->
+<div class="tool" onclick="toggleSection('password-generator')">
+  <i class="fas fa-key tool-icon"></i>
+  <h2>Password Generator</h2>
+</div>
+
+<!-- Number Converter -->
+<div class="tool" onclick="toggleSection('number-converter')">
+  <i class="fas fa-sort-numeric-up tool-icon"></i>
+  <h2>Number Converter</h2>
+</div>
+
+<!-- Percentage Calculator -->
+<div class="tool" onclick="toggleSection('percentage-calculator')">
+  <i class="fas fa-percent tool-icon"></i>
+  <h2>Percentage</h2>
+</div>
+
+<!-- EMI Calculator -->
+<div class="tool" onclick="toggleSection('emi-calculator')">
+  <i class="fas fa-coins tool-icon"></i>
+  <h2>EMI Calculator</h2>
+</div>
+
+<!-- To-do list -->
+<div class="tool" onclick="toggleSection('todo-list')">
+  <i class="fas fa-tasks tool-icon"></i>
+  <h2>To-Do List</h2>
+</div>
+<!-- Stopwatch -->
+<div class="tool" onclick="toggleSection('stopwatch')">
+  <i class="fas fa-stopwatch tool-icon"></i>
+  <h2>Stopwatch</h2>
+</div>
+
 <div class="tool" onclick="toggleSection('game-zone')">
     <i class="fas fa-gamepad tool-icon"></i>
     <h2>Game Zone</h2>
 </div>
+
+
 
     <!-- Thumbnail Downloader Section -->
     <div id="thumbnail-downloader" class="tool-section">
@@ -1294,9 +1403,57 @@ model-viewer:hover {
     </div>
     <button id="download-upscaled-btn" class="download-btn" style="display:none; margin-top:20px;">Download Upscaled</button>
 </div>
+<div id="calculator" class="tool-section">
+  <button class="close-section" onclick="closeSection()">×</button>
+  <h2>Calculator</h2>
+  <input type="text" id="calc-input" placeholder="Enter expression e.g. 2+3*4">
+  <button onclick="document.getElementById('calc-result').innerText = eval(document.getElementById('calc-input').value)">Calculate</button>
+  <h3 id="calc-result"></h3>
+</div>
 
+<div id="bmi-calculator" class="tool-section">
+  <button class="close-section" onclick="closeSection()">×</button>
+  <h2>BMI Calculator</h2>
+  <input type="number" id="bmi-weight" placeholder="Weight (kg)">
+  <input type="number" id="bmi-height" placeholder="Height (cm)">
+  <button onclick="
+    let w=bmi-weight.value;
+    let h=bmi-height.value/100;
+    document.getElementById('bmi-result').innerText =
+    'BMI: ' + (w/(h*h)).toFixed(2);
+  ">Calculate BMI</button>
+  <h3 id="bmi-result"></h3>
+</div>
 
- <!-- Updated Game Zone Section for eazyalokwebsite.html -->
+<div id="age-calculator" class="tool-section">
+  <button class="close-section" onclick="closeSection()">×</button>
+  <h2>Age Calculator</h2>
+  <input type="date" id="dob">
+  <button onclick="
+    let dob=new Date(document.getElementById('dob').value);
+    let diff=Date.now()-dob.getTime();
+    let age=new Date(diff).getUTCFullYear()-1970;
+    document.getElementById('age-result').innerText='Age: '+age+' years';
+  ">Calculate Age</button>
+  <h3 id="age-result"></h3>
+</div>
+
+<div id="password-generator" class="tool-section">
+  <button class="close-section" onclick="closeSection()">×</button>
+  <h2>Password Generator</h2>
+  <input type="number" id="pass-length" placeholder="Length (e.g. 12)">
+  <button onclick="
+    let chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%';
+    let pass='';
+    for(let i=0;i<pass-length.value;i++){
+      pass+=chars[Math.floor(Math.random()*chars.length)];
+    }
+    document.getElementById('pass-result').value=pass;
+  ">Generate</button>
+  <input type="text" id="pass-result" readonly>
+</div>
+
+<!-- Updated Game Zone Section for eazyalokwebsite.html -->
 <div id="game-zone" class="tool-section">
   <button class="close-section" onclick="closeSection()">×</button>
   <h2 style="margin-bottom: 10px;">🎮 Game Zone</h2>
@@ -1399,7 +1556,7 @@ model-viewer:hover {
       </p>
       <p style="font-size: 1.05rem; color: #b0eaff;">
         If you have feedback, suggestions, or want to connect, find me on social media or email me at
-        <a href="mailto:alokkushwaha289@gmail.com" style="color: #fff129; text-decoration: underline;">Mail Us</a>.
+        <a href="mailto:alokkushwaha289@gmail.com" style="color: #fff129; text-decoration: underline;">Mail</a>.
       </p>
     </div>
 
@@ -2181,6 +2338,14 @@ function setupEventListeners() {
 // These are handled via HTML onclick attributes opening new tabs
 // No additional JavaScript needed
 </script>
+
+<script>
+let t=0, interval;
+function start(){ interval=setInterval(()=>time.innerText=++t,1000);}
+function stop(){ clearInterval(interval);}
+function reset(){ t=0; time.innerText=0;}
+</script>
+
 <div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#23283a;color:#fff;padding:14px 28px;border-radius:8px;box-shadow:0 2px 12px #0005;z-index:9999;display:none;font-size:1.1rem;"></div>
 <div id="spinner" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2000;background:rgba(0,0,0,0.18);align-items:center;justify-content:center;">
   <div style="border:6px solid #eee;border-top:6px solid #59f4ff;border-radius:50%;width:48px;height:48px;animation:spin 1s linear infinite;"></div>
